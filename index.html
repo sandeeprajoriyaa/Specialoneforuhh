@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+    width:320px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+h2{ color:#ff4d6d; }
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.yes{
+    background:#ff4d6d;
+    color:white;
+}
+
+.no{
+    background:#ddd;
+    position:absolute;
+}
+
+/* Floating hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:float 6s linear infinite;
+    color:#ff4d6d;
+}
+@keyframes float{
+    0%{ transform:translateY(0); opacity:1; }
+    100%{ transform:translateY(-110vh); opacity:0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c9bcbdd8f.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="page1">
+    <h2>💘 Will you be my Valentine, Taniya? 💘</h2>
+    <br>
+    <button class="yes" onclick="openGift()">Yes 💖</button>
+    <button class="no" id="noBtn">No 🙈</button>
+</div>
+
+<div class="card" id="page2" style="display:none;">
+    <h2>😌 I knew it!</h2>
+    <p>
+        <b>Congratulations 💖✨</b><br><br>
+        Taniya, mujhe pehle hi pata tha tum haan kahogi 😉<br><br>
+        Tum meri zindagi ka sabse pyara hissa ho 🌸<br><br>
+        Happy Valentine’s Day, Taniya ❤️🌹
+    </p>
+</div>
+
+<script>
+// No button bhagta rahega
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", ()=>{
+    const card = document.querySelector(".card");
+    const maxX = card.clientWidth - noBtn.offsetWidth;
+    const maxY = card.clientHeight - noBtn.offsetHeight;
+    noBtn.style.left = Math.random()*maxX + "px";
+    noBtn.style.top = Math.random()*maxY + "px";
+});
+
+// Yes button
+function openGift(){
+    document.getElementById("page1").style.display="none";
+    document.getElementById("page2").style.display="block";
+}
+
+// Floating hearts
+setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+},500);
+</script>
+
+</body>
+</html>
